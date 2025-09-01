@@ -1,0 +1,210 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+  }
+  
+  body {
+  color: rgb(var(--foreground-rgb));
+  font-family: 'Inter', Arial, sans-serif;
+  }
+  /*responsible for the blue tick when a link is clicked */
+  .menu-effect{
+  left: -0.75rem;
+  top: 0.125rem;
+  z-index: -10;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 0.5rem;
+  background-color: #48AFDE;
+  transition-duration: .5s;
+  position: absolute;
+  }
+  
+  /*this one here is responsible for the smooth scroll*/
+  html {
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(83, 201, 201, 0.6) transparent;
+  }
+  
+  /* Modern auto-hiding scrollbar for Webkit browsers */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: rgba(83, 201, 201, 0.6);
+    border-radius: 4px;
+    transition: background 0.3s ease;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(83, 201, 201, 0.8);
+  }
+  
+  /*portfolio deytails overlay background */
+  .overlay {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  /* height: 100%; */
+  /* z-index: 10; */
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.6));
+  backdrop-filter: blur(4px); /* Add blur effect */
+  }
+  
+  @media screen and (max-width:900px) {
+  
+  .ground-color-change{
+  background: linear-gradient(90deg, rgba(238,247,251,1) 55%, rgba(255,255,255,1) 55%);
+  }
+  }
+  
+  @media (max-width:640px) {
+  .my-slider{
+  width: 100% !important;
+  }
+  }
+  
+  @media (max-width:640px) {
+  .my-slider{
+  width: 100% !important;
+  }
+  }
+
+  /* Scroll animation initial states - prevent FOUC */
+  .projects-title {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .recent-works-subtitle {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+  }
+
+  .projects-description {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.4s;
+  }
+
+  .scroll-animate-delayed-3 {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.6s;
+  }
+
+  /* Visible states */
+  .projects-title.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .recent-works-subtitle.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .projects-description.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .scroll-animate-delayed-3.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Loading screen - critical for preventing flash on refresh */
+  .loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, #0f172a 0%, #1e293b 30%, #334155 70%, #475569 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  .loading-text {
+    color: #53c9c9;
+    font-size: 2rem;
+    font-weight: bold;
+    font-family: 'Inter', Arial, sans-serif;
+    text-shadow: 0 0 20px rgba(83, 201, 201, 0.5);
+    animation: loadingPulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes loadingPulse {
+    0%, 100% { 
+      opacity: 0.6;
+      transform: scale(1);
+    }
+    50% { 
+      opacity: 1;
+      transform: scale(1.05);
+    }
+  }
+
+  /* About Me section animation states */
+  .about-title {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .about-title.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .photo-section {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+  }
+
+  .photo-section.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .info-section {
+    opacity: 0;
+    transform: translateX(40px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.4s;
+  }
+
+  .info-section.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .hobbies {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.6s;
+  }
+
+  .hobbies.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
