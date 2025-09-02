@@ -106,6 +106,201 @@ export default function HomeComponent() {
             }
         }
 
+        class ShootingStarSystem {
+            constructor(canvasId){
+                this.canvas = document.getElementById(canvasId);
+                if (!this.canvas) return;
+
+                this.ctx = this.canvas.getContext('2d');
+                this.stars = [];
+                this.maxStars = 5;
+
+                this.resizeCanvas();
+                this.animate();
+
+                // Create new stars, more often
+                this.starInterval = setInterval(() => {
+                    if (this.stars.length < this.maxStars && Math.random() > 0.6){
+                        this.stars.push(new ShootingStar(this.canvas));
+
+                        // 50-50 chance of a second star spawn
+                        if (Math.random() > 0.5){
+                            setTimeout(() => {
+                                if(this.stars.length < this.maxStars){
+                                    this.stars.push(new ShootingStar(this.canvas));
+                                }
+                            }, Math.random() * 500 +200);
+                        }
+                    }
+                }, 1500);
+
+                // Handle resize
+                this.resizeHandler = () => this.resizeCanvas();
+                window.addEventListener('resize', this.resizeHandler);
+            }
+
+            resizeCanvas(){
+                this.canvas.width = this.canvas.offsetWidth;
+                this.canvas.height = this.canvas.offsetHeight;
+            }
+
+            animate(){
+                // Clear canvas to stop lingering marks
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+                // Update and draw stars
+                this.stars = this.stars.filter(star => {
+                    const alive = star.update();
+                    if(alive){
+                        star.draw();
+                    }
+                    return alive;
+                });
+
+                this.animationFrame = requestAnimationFrame(() => this.animate());
+            }
+
+            destroy(){
+                if (this.starInterval) clearInterval(this.starInterval);
+                if (this.animationFrame) cancelAnimationFrame(this.animationFrame);
+                if (this.resizeHandler) window.removeEventListener('reszie', this.resizeHandler);
+            }
+        }
+
+        // Create neural network 
+        function createNeuralNetwork(){
+            const container = document.getElementById('neural-network');
+            if (!conainer) return;
+
+            const nodes = [];
+            const nodeCount = Math.min(10, Math.floor(window.innerWidth / 100));
+
+            // Nodes for only top 60% of screen
+            for (let i = 0; i < nodeCount; i++){
+                const node = document.createElement('div');
+                node.className = 'neural-node';
+
+                const x = Math.random() * (window.innerWidth - 50) + 25;
+                const y = Math.random() * (window.innerHeight * 0.6) + 25;
+
+                Object.assign(node.style,{
+                    position: 'absolute',
+                    width: '12px',
+                    height: '12px',
+                    background: 'radial-gradient(circle at 30% 30%, rgba(255,255,255,1), rgba(255,255, 255, 0.8), rgba(255,255,255,0.4)',
+                    borderRadius: '50%',
+                    border: '1px solid rgba(255,255,255, 0.3)',
+                    boxShawdow: '0 0 10px rgba(255, 255, 255, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.3)',
+                    left: x + 'px',
+                    top: y + 'px',
+                    animation: 'advancedPulse 4s ease-in-out infinite'
+                });
+
+                if (i & 2 === 1) node.style.animationDelay = '0.8s';
+                if (i % 3 === 0) node.style.animationDelay = '1.6s';
+
+                container.appendChild(node);
+                nodes.push({element: node, x, y});
+            }
+
+            //Create Connections
+            for (let i = 0; i < nodes.length; i++){
+                for (let j = i + 1; j < nodes.length; j++){
+                    const distance = Math.sqrt(
+                        Math.pow(nodes[i].x - nodes[j].x, 2) +
+                        Math.pow(nodes[i].y - nodes[j].y, 2)
+                    );
+
+                    if (distance < Math.min(200, window.innerWidth * 0.25)){
+                        const connection = document.createElement('div');
+                        connection.className = 'neural-connection';
+
+                        const angle = Math.atan2(
+                            nodes[j].y - nodes[i].y,
+                            nodes[j].x - nodes[i].x
+                        ) * 180 / Math.PI;
+
+                        Object.assign(connection.style,{
+                            position: 'absolute',
+                            height: '0.5px',
+                            background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent',
+                            opacity: '0',
+                            left: nodes[i].x = 'px',
+                            top: nodes[i].y + 'px',
+                            width: distance + 'px',
+                            transform: `rotate(${angle}deg)`,
+                            transformOrigin: '0 50%',
+                            animation: 'flow 4s ease-in-out infinite',
+                            animationDelay: Math.random() * 4 + 's'
+                        });
+                        container.appendChild(connection);
+                    }
+                }
+            }
+        }
+
+        // Create star network
+        function createStarNetwork(){
+            const container = document.getElementById('star-network');
+            if (!container) return;
+
+            const stars = [];
+            const starCount = Math.min(6, Math.floor(window.innerWidth /200));
+
+            for (let i = 0; i < starCount; i++){
+                const star = document.createElement('div');
+                star.className = 'star-node';
+
+                const x = Math.random() * (window.innerWidth - 50) + 25;
+                const y = Math.random() * (window.innerHeight * 0.6) + 25
+
+                Object.assign(star.style, {
+                    position: 'absolute',
+                    width: '8px',
+                    height: '8px',
+                    background: 'radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.4) 40%, transparent 70%)',
+                    borderRadius: '50%',
+                    left: x + 'px',
+                    top: y + 'px',
+                    animation: 'advancedStarTwinkle 6s ease-in-out infinite'
+                });
+
+                if (i % 2 === 1) star.style.animationDelay = '1s';
+                if (i % 3 === 0) star.style.animationDelay = '2s';
+
+                // Add star crossing effect
+                const before = document.createElement('div');
+                Object.assign(before.style, {
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    width: '16px',
+                    height: '1.5px',
+                    background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent)',
+                    transform: 'translate(-50%, -50%)',
+                    borderRadius: '2px'
+                });
+
+                const after = document.createElement('div');
+                Object.assign(after.style, {
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    width: '1.5px',
+                    height: '16px',
+                    background: 'linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.8), transparent)',
+                    transform: 'translate(-50%, -50%)',
+                    borderRadius: '2px'
+                });
+
+                star.appendChild(before);
+                star.appendChild(after);
+
+                container.appendChild(star);
+                stars.push({element: star, x, y});
+            }
+        }
+
 
 
 
