@@ -301,6 +301,358 @@ export default function HomeComponent() {
             }
         }
 
+        // Create floating particles
+        function createParticles(){
+            const container = document.getElementById('hero-section');
+            if (!container) return;
+
+            const particleCount = Math.min(12, Math.floor(window.innerWidth / 120));
+
+            for (let i = 0; i < particleCount; i++){
+                const particle = document.createElement('div');
+                particle.className = 'floating-particle';
+
+                const intialSize = Math.random() * 2 + 2;
+                Object.assign(particle.style, {
+                    position: 'absolute',
+                    background: '#ffffff',
+                    borderRadius: '50%',
+                    opacity: '0.7',
+                    width: intialSize + 'px',
+                    height: intialSize + 'px',
+                    left: Math.random() * window.innerWidth + 'px',
+                    top: Math.random() * (window.innerHeight * 0.6) + 'px',
+                    animation: 'particleFloat 6s ease-in-out infinite',
+                    animationDelay: Math.random() * 6 + 's',
+                    aniamtionDuration: (Math.random() * 4 + 4) + 's'
+                });
+
+                container.appendChild(particle);
+            }
+        }
+
+        // Intialize functions
+        createNeuralNetwork();
+        createStarNetwork();
+        createParticles();
+
+        // Intialize shooting star system
+        const shootingStarSystem = new ShootingStarSystem('shootingCanvas');
+
+        // Trigger animations and hide loading screen
+        setTimeout(() => {
+            const canvas = document.getElementById('shootingCanvas');
+            const neuralNetwork = document.getElementById('neural-network');
+            const starNetwork = document.getElementById('star-network');
+            const loadingScreen = document.getElementById('loading-screen');
+      
+            if (canvas) canvas.classList.add('active');
+            if (neuralNetwork) neuralNetwork.classList.add('active');
+            if (starNetwork) starNetwork.classList.add('active');
+      
+            // Hide loading screen only if it was shown (on refresh)
+            if (loadingScreen && isPageRefresh && loadingScreen.style.display !== 'none') {
+                loadingScreen.style.opacity = '0';
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                }, 500);
+            }
+        }, 300);
+    
+        // Cleanup function
+        return () => {
+            if (shootingStarSystem) {
+                shootingStarSystem.destroy();
+            }
+      
+            // Clean up created elements
+            const containers = ['neural-network', 'star-network', 'hero-section'];
+            containers.forEach(id => {
+                const container = document.getElementById(id);
+                if (container) {
+                    const elements = container.querySelectorAll('.neural-node, .neural-connection, .star-node, .floating-particle');
+                    elements.forEach(el => el.remove());
+                }
+            });
+        };
+    }, []);
+
+    // Handles subtitle animation
+    const handleSubtitleAnimationEnd = () => {
+        setHeadingAnimationDone(true);
+    };
+
+    return (
+<React.Fragment>
+            {/* CSS Styles */}
+            <style jsx>{`
+                .hero-section {
+                    min-height: 100vh;
+                    position: relative;
+                    background: linear-gradient(180deg, #0f172a 0%, #1e293b 30%, #334155 70%, #475569 100%);
+                    overflow: hidden;
+                }
+
+                .neural-network, .star-network {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%
+                    opacity: 0;
+                    pointer-events: none;
+                    transition: opacity 0.5s ease-in-out;
+                }
+
+                .neural-network.active{
+                    opacity: 0.4;
+                }
+
+                .star-network.active {
+                    opacity: 0.6;
+                }
+
+                .shooting-stars-canvas {
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    pointer-events: none;
+                    z-index: 3;
+                    opacity: 0;
+                    tranisition: opacity 0.5s ease-in-out;
+                }
+
+                .shooting-stars-canvas-active {
+                    opacity: 1;
+                }
+
+                .loading-screen {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(180deg, #0f172a 0%, #1e293b 30%, #334155 70%, #475569 100%);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    z-index: 9999;
+                    opacity: 1;
+                    transition: opacity 0.5s ease-in-out;
+                }
+
+                .loading-text {
+                    color: #53c9c9;
+                    font-size: 2rem;
+                    font-weight: bold;
+                    font-family: 'Inter', Arial, sans-serif;
+                    text-shadow: 0 0 20px rgba(83, 201, 201, 0,5);
+                    animation: loadingPulse 1.5s ease-in-out infinite;
+                }
+
+                @keyframes loadingPulse {
+                    0%, 100% {
+                        opacity: 0.6;
+                        transform: scale(1);
+                    }
+                    50% {
+                        opacity: 1;
+                        transform: scale(1.05);
+                    }
+                }
+
+                                    .hero-content {
+                     min-height: 100vh;
+                     display: flex;
+                     flex-direction: column;
+                     align-items: center;
+                     justify-content: center;
+                     text-align: center;
+                     transition: padding: 0.5s cubic-bezier(0.4,0,0.2,1);
+                     padding-top: 0;
+                     padding-bottom: 0;
+                   }
+
+                   .hero-text{
+                        color: #53c9c9;
+                        text-shadow: 0 0 20px rgba(83,201,201,0.5);
+                        margin-bottom: 0.5rem;
+                        transition: margin-bottom 0.5s cubic-bezier(0.4,0,0.2.1), margin-top 0.5s cubic-bezier(0.4,0,0.2,1);
+                    }
+                    .hero-text.chat-expanded {
+                        margin-bottom: 0.25rem;
+                        margin-top: 0;
+                    }
+                    .chatbot-hero-wrapper {
+                        width: 100%
+                        max-width: 750px;
+                        margin: 0 auto;
+                        display: flex;
+                        flex-direction: column;
+                        align-item: center;
+                    }
+
+                    .bottom-fade {
+                        postion: absolute;
+                        bottom: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 25vh;
+                        background: linear-gradient (
+                            to bottom,
+                            transparent 0%,
+                            rgba(71, 85, 105, 0.05) 15%,
+                            rgba(71, 85, 105, 0.1) 25%,
+                            rgba(71, 85, 105, 0.2) 35%,
+                            rgba(71, 85, 105, 0.35) 50%,
+                            rgba(71, 85, 105, 0.5) 65%,
+                            rgba(71, 85, 105, 0.7) 80%,
+                            rgba(71, 85, 105, 0.85) 90%,
+                            #475569 100%
+                        );
+                        z-index: 5;
+                        pointer-events: none;
+                    }
+
+                   @keyframes advancedPulse {
+                        0%, 100%{
+                            tranform: scale(1);
+                            opacity: 0.8;
+                            box-shadow: 0 0 10px rgba(255, 255,255, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.3);
+                        }
+                        50% {
+                            transform: scale(1.15);
+                            opacity: 1;
+                            box-shadow: 0 0 15px rgba(255, 255, 255, 0.9), inset 0 1px 0 rgba(255, 255, 255, 1), 0 0 30px rgba(255, 255, 255, 0.5);
+                        }
+                   }
+
+                   @keyframes advancedStarTwinkle {
+                        0%, 100% {
+                            transform: scale(1) rotate(0deg);
+                            opacity: 0.7;
+                        }
+                        25%{
+                            transform: scale(1.3) rotate(45deg);
+                            opacity: 1;
+                        }
+                        50%{
+                            transform: scale(0.8), rotate(90deg);
+                            opacity: 0.9;
+                        }
+                        75%{
+                            transform: scale(1.1), rotate(135deg);
+                            opacity: 1;
+                        }
+                   }
+
+                   @keyframes flow {
+                    0% { opacity: 0; }
+                    30% { opacity: 0.6; }
+                    70% { opacity: 0.6; }
+                    100% { opacity: 0; }
+                   }
+
+                   @keyframes particleFloat {
+                    0%, 100% {
+                        transform: translateY(0px) translateX(0px) scale(1);
+                        opacity: 0.7;
+                    }
+                    25% {
+                        transform: translateY(-15px) translateX(5px) scale(0.8);
+                        opacity: 1;
+                    }
+                    50%{
+                        transform: translateY(-10px) translateX(-5px) scale(0.6);
+                        opacity: 0.8;
+                    }
+                    75%{
+                        transform: translateY(-20px) translateX(3px) scale(0.4);
+                        opacity: 1;
+                    }
+                   }
+
+                   .fade-in-up {
+                        opacity: 0;
+                        transform: translateY(30px);
+                        animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+                   }
+                    .fade-in-up.delay-1 {
+                        animation-delay: 0.2s;
+                    }
+                    .fade-in-up.delay-2 {
+                        animation-delay: 1s;
+                    }
+                    @keyframes fadeInUp {
+                        to {
+                            opacity: 1;
+                            translate: transformY(0);
+                        }
+                    }
+
+                    @media (max-width: 900px){
+                        .chatbot-hero-wrapper {
+                            max-width: 98vw;   
+                        }
+                    }
+                    @media (max-width: 600px){
+                        .chatbot-hero-wrapper{
+                            max-width: 100vw;
+                        }
+                    }
+            `}</style>
+            <div id="home" className="hero-section">
+                {/* Loading Screen */}
+                <div id="loading-screen" className="loading-screen">
+                    <div className="loading-text">Loading...</div>
+                </div>
+                <canvas className="shooting-stars-canvas" id="shootingCanvas"></canvas>
+                <div className="neural-network" id="neural-network"></div>
+                <div className="star-network" id="star-network"></div>
+                <div className="bottom-fade"></div>
+                <div className="hero-content">
+                    <div className={`hero-text${chatExpanded ? ' chat-expanded' : ''}`}>
+                        <h1 className="font-black text-3xl md:text-5xl lg:text-5xl xl:text-5xl mt-2 mb-2 fade-in-up delay-1">
+                            Hi I am Justin
+                        </h1>
+                        <h2
+                            className="mt-2 py-1 font-bold md:text-xl mb-1 fade-in-up delay-2"
+                            onAnimationEnd={handleSubtitleAnimationEnd}
+                        >
+                            University of California, <br /> Riverside
+                        </h2>
+                    </div>
+                    {/* AI CHATBOT */}
+                    <div className="chatbot-hero-wrapper">
+                        <ChatBot onExpand={setChatExpanded} typingReady={headingAnimationDone} />
+                    </div>
+                    {/* Scroll Indicator */}
+                    <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+                        <div className="flex flex-col items-center">
+                            <span className="text-white text-sm mb-2 opacity-60">Scroll Down</span>
+                            <svg
+                                className="w-6 h-6 text-white opacity-60"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </React.Fragment>
+    );
+}
+
+
+
+
+
+
+
 
 
 
