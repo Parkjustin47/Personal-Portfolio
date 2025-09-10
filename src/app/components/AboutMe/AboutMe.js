@@ -194,9 +194,249 @@ export default function AboutMe(){
                     margin-bottom: 1.5rem;
                     font-family: 'Inter', Arial, sans-serif;
                 }
+
+                .hobbies-grid{
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 1rem;
+                    margin-top: 1.5rem;
+                }
+
+                .hobby-item{
+                    aspect-ratio: 1;
+                    position: relative;
+                    overflow: hidden;
+                    border-radius: 12px;
+                    box-shawdow: 0 4px 15px rgba(0,0,0,0.2);
+                    transition: all 0.3s ease;
+                }
+
+                .hobby-item:hover{
+                    transform: translateY(-5px)
+                    box-shawdow: 0 8px 25px rgba(0,0,0,0.3);
+                }
+
+                .hobby-image{
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    transition: all 0.3s ease;
+                }
+
+                .hobby-image:hover{
+                    transform: scale(1.05);
+                }
+
+                .hobby-description{
+                    color: #ffffff;
+                    font-size: 1.2rem;
+                    line-height: 1.8;
+                    margin-bottom: 1rem;
+                }
+
+                @media (max-width: 768px){
+                    .about-content{
+                        grid-template-columns: 1fr;
+                        gap: 2rem;
+                        text-align: center;
+                        padding: 2rem;
+                    }
+
+                    .photo-section{
+                        order: 1;
+                    }
+
+                    .info-section{
+                        order: 2;
+                    }
+
+                    .profile.photo{
+                        width: 220px;
+                        height: 280px;
+                    }
+
+                    .info-content{
+                        gap: 2rem
+                    }
+
+                    .education, .involvement, .interests{
+                        text-align: left;
+                        border-left: 3px solid #05d9e8;
+                        padding-left: 1rem;
+                    }
+
+                    .education h3, .involvement h3, .interests h3{
+                        font-size: 1.5rem;
+                    }
+
+                    .education p, .involvement p, .interests p{
+                        font-size: 1.1rem;
+                    }
+
+                    .hobbies h3{
+                        font-size: 1.5rem;
+                    }
+
+                    .hobby-description{
+                        font-size: 1.1rem;
+                    }
+
+                    .hobbies{
+                        padding: 2rem;
+                    }
+
+                    .hobbies-grid{
+                        grid-template-columns: repeat(3, 1fr);
+                        gap: 0.8rem;
+                    }
+
+                    .resume-button-section{
+                        justify-content: center;
+                        margin-top: 1.5rem;
+                    }
+
+                    .resume-button{
+                        font-size: 1rem;
+                        padding: 0.875rem 1.5rem;
+                    }
+
+                    .resume-icon{
+                        width: 18px;
+                        height: 18px;
+                    }
+                }
+
+                @media (max-width: 480px){
+                    .about-container{
+                        padding: 0 1rem;
+                    }
+
+                    .about-content{
+                        padding: 1.5rem;
+                    }
+
+                    .profile-photo{
+                        width: 180px;
+                        height: 230px;
+                    }
+
+                    .hobbies{
+                        padding: 1.5rem;
+                    }
+
+                    .hobbies-grid{
+                        gap: 0.6rem;
+                    }
+
+                    .resume-button{
+                        font-size: 0.95rem;
+                        padding: 0.75rem 1.25rem;
+                    }
+
+                    .resume-icon{
+                        width: 16px;
+                        height: 16px;
+                    }
+                }
             `}</style>
+
+            <div className="about-container">
+                <h2 
+                    ref={sectionRef}
+                    className={`about-title ${sectionVisible ? 'visible' : ''}`}
+                >
+                    About Me
+                </h2>
+
+                <div className="about-content">
+                    <div 
+                        ref={photoRef}
+                        className={`photo-section ${photoVisible ? 'visible' : ''}`}
+                    >
+                        <img 
+                            src="" 
+                            alt="Justin Park"
+                            className=""
+                        />
+                    </div>
+
+                    <div 
+                        ref={contentRef}
+                        className={`info-section ${contentVisible ? 'visible' : ''}`}
+                    >
+                        <div className="info-content">
+                            <div className="education">
+                                <h3>University of California, Riverside</h3>
+                                <p>B.S. in Computer Science with Business Applications ('27)</p>
+                            </div>
+
+                            <div className="involvement">
+                                <h3>Involvement</h3>
+                                <div className="involvement-item">
+                                    <p>FILL IN HERE</p>
+                                </div>
+                                <div className="involvement-item">
+                                    <p>FILL IN HERE </p>
+                                </div>
+                            </div>
+
+                            <div className="interests">
+                                <h3>Interests</h3>
+                                <p>FILL IN</p>
+                            </div>
+
+                            <div className="resume-button-section">
+                                <a 
+                                    href="/Resume.pdf"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="resume-button"
+                                >
+                                    <svg className="resume-icon" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                                    </svg>
+                                    Download Resume
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div 
+                    ref={hobbiesRef}
+                    className={`hobbies ${hobbiesVisible ? 'visible' : ''}`}
+                >
+                    <h3>Hobbies</h3>
+                    <p className="hobby-description">
+                        FILL IN
+                    </p>
+                    <div className="hobbies-grid">
+                        <div className="hobby-item">
+                            <img 
+                                src="" 
+                                alt=""
+                                className=""
+                            />
+                        </div>
+                        <div className="hobby-item">
+                            <img 
+                                src="" 
+                                alt=""
+                                className=""
+                            />
+                        </div>
+                        <div className="hobby-item">
+                            <img 
+                                src="" 
+                                alt=""
+                                className=""
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     )
-}
+} 
 
 
