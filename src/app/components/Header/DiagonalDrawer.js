@@ -1,13 +1,12 @@
 import React from "react";
-import { useRouter, usePathname } from "next/navigation";
+import { useTheme } from "../../hooks/useTheme";
 
 export default function DiagonalDrawer({
   isOpen,
   setIsOpen,
   activeSection,
 }) {
-  const route = useRouter();
-  const pathname = usePathname();
+  const { isDarkMode } = useTheme();
 
   return (
     <>
@@ -21,56 +20,84 @@ export default function DiagonalDrawer({
 
       {/* Drawer */}
       <div
-        className={`fixed top-0 left-0 h-72 w-full bg-white shadow-lg transform ${
+        className={`fixed top-0 left-0 h-80 w-full shadow-2xl transform backdrop-blur-xl border-b transition-all duration-300 ease-in-out z-50 ${
           isOpen ? "translate-y-0" : "-translate-y-full"
-        } transition-transform duration-300 ease-in-out z-50`}
+        } ${
+          isDarkMode 
+            ? 'bg-slate-900/95 border-slate-700' 
+            : 'bg-white/95 border-slate-200'
+        }`}
       >
         {/* Drawer Header */}
-        <div className="flex items-center justify-between p-4 border-b cursor-pointer" >
-          <span className="text-lg font-bold text-gray-700">Menu</span>
-          
+        <div className={`flex items-center justify-between p-6 border-b ${
+          isDarkMode ? 'border-slate-700' : 'border-slate-200'
+        }`}>
+          <span className={`text-xl font-bold ${
+            isDarkMode ? 'text-white' : 'text-slate-800'
+          }`}>
+            Navigation
+          </span>
+          <button
+            onClick={() => setIsOpen(false)}
+            className={`p-2 rounded-full transition-all duration-200 hover:scale-110 ${
+              isDarkMode 
+                ? 'text-slate-400 hover:text-white hover:bg-slate-800' 
+                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+            }`}
+            aria-label="Close menu"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
         </div>
 
         {/* Navigation Links */}
-        <nav className="mt-4 text-center">
-          <ul className="space-y-4">
-            <li className="px-6 py-2">
+        <nav className="p-6">
+          <ul className="space-y-6">
+            <li>
               <a
                 href="/#home"
-                className={`font-semibold ${
-                  activeSection === 'home' ? "text-[#53c9c9]" : "text-gray-700"
+                className={`block py-3 px-4 rounded-lg font-semibold text-lg transition-all duration-200 hover:scale-105 ${
+                  activeSection === 'home' 
+                    ? "text-[#53c9c9] bg-[#53c9c9]/10" 
+                    : isDarkMode 
+                      ? "text-white hover:text-[#53c9c9] hover:bg-slate-800/50" 
+                      : "text-slate-700 hover:text-[#53c9c9] hover:bg-slate-100"
                 }`}
-                onClick={() => {
-                  setIsOpen(false); // Close the drawer after clicking
-                }}
+                onClick={() => setIsOpen(false)}
               >
-                Home
+                🏠 Home
               </a>
             </li>
-            <li className="px-6 py-2">
+            <li>
               <a
                 href="/#about"
-                className={`font-semibold ${
-                  activeSection === 'about' ? "text-[#53c9c9]" : "text-gray-700"
+                className={`block py-3 px-4 rounded-lg font-semibold text-lg transition-all duration-200 hover:scale-105 ${
+                  activeSection === 'about' 
+                    ? "text-[#53c9c9] bg-[#53c9c9]/10" 
+                    : isDarkMode 
+                      ? "text-white hover:text-[#53c9c9] hover:bg-slate-800/50" 
+                      : "text-slate-700 hover:text-[#53c9c9] hover:bg-slate-100"
                 }`}
-                onClick={() => {
-                  setIsOpen(false);
-                }}
+                onClick={() => setIsOpen(false)}
               >
-                About
+                👨‍💻 About
               </a>
             </li>
-            <li className="px-6 py-2">
+            <li>
               <a
                 href="/#projects"
-                className={`font-semibold ${
-                  activeSection === 'projects' ? "text-[#53c9c9]" : "text-gray-700"
+                className={`block py-3 px-4 rounded-lg font-semibold text-lg transition-all duration-200 hover:scale-105 ${
+                  activeSection === 'projects' 
+                    ? "text-[#53c9c9] bg-[#53c9c9]/10" 
+                    : isDarkMode 
+                      ? "text-white hover:text-[#53c9c9] hover:bg-slate-800/50" 
+                      : "text-slate-700 hover:text-[#53c9c9] hover:bg-slate-100"
                 }`}
-                onClick={() => {
-                  setIsOpen(false);
-                }}
+                onClick={() => setIsOpen(false)}
               >
-                Projects
+                🚀 Projects
               </a>
             </li>
           </ul>

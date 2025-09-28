@@ -1,56 +1,40 @@
 'use client'
 import { useState, useEffect } from 'react'
 
-export function useActiveSection(){
-    const [activeSection, setActiveSection] = useState('home')
+export function useActiveSection(sectionIds = ['home', 'about', 'projects']) {
+  const [activeSection, setActiveSection] = useState(sectionIds[0])
 
-    useEffect(() => {
-        const sections = [
-            { id: 'home', element: null },
-            { id: 'about', element: null },
-            { id: 'projects', element: null }
-        ]
+  useEffect(() => {
+    // Get all valid section elements in one pass
+    const validElements = sectionIds
+      .map(id => document.getElementById(id))
+      .filter(Boolean)
 
-        // Get section elements
-        sections.forEach(section => {
-            const element = document.getElementById(section.id)
-            if (element) {
-                section.element = element
-            }
+    if (validElements.length === 0) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id)
+            
+            // Update URL hash without triggering scroll
+            const newUrl = `${window.location.pathname}#${entry.target.id}`
+            window.history.replaceState({ path: newUrl }, '', newUrl)
+          }
         })
+      },
+      {
+        threshold: 0.3,
+        rootMargin: '-20% 0px -20% 0px'
+      }
+    )
 
-        // Filter out sections that do not exist
-        const validSections = sections.filter(section => section.element)
+    // Observe all valid elements
+    validElements.forEach(element => observer.observe(element))
 
-        if (validSections.length === 0) return
+    return () => observer.disconnect()
+  }, [sectionIds])
 
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting){
-                        const sectionId = entry.target.id
-                        setActiveSection(sectionId)
-
-                        // update URL hash without triggering scroll
-                        const newUrl = `${window.location.pathname}#${sectionId}`
-                        window.history.replaceState({ path: newUrl }, '', newUrl)
-                    }
-                })
-            },
-            {
-                threshold: 0.3, // Section is 30% visible
-                rootMargin: '-20% 0px -20% 0px' // Adjust when section is active
-            }
-        )
-
-        // Observe all sections
-        validSections.forEach(section => {
-            observer.observe(section.element)
-        })
-
-        return () => {
-            observer.disconnect()
-        }
-    }, [])
-    return activeSection
-}
+  return activeSection
+} 
