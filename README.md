@@ -14,25 +14,26 @@ pnpm dev
 bun dev
 ```
 
-In case anyone is struggling to run, .next and node_modules directories have to be rebuild.
-those two files are commonly excluded through .gitignore file (rebuildable)
+If you are having trouble running the project, the .next and node_modules directories may need to be rebuilt.
+These directories are commonly excluded through the .gitignore file since they can be regenerated.
 
-to verity:
+To verify:
 ```bash
-Check .gitignore file to ensure followings exist.
+Check the .gitignore file to ensure the following entries exist:
 
 .next/
 node_modules/
 
-generate using:
+Regenerate using:
 npm run build
 # or
 next build
+
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+You can start editing the page by modifying `app/page.js`. The page will automatically update as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
@@ -47,6 +48,6 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme), created by the team behind Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Check out the [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

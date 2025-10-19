@@ -1,100 +1,14 @@
-// this comtains the data we are gonna for AboutMe component and slider component 
 
-export const AboutData = [
-  {
-    count: 1,
-    title: "UI / UX Designer",
-    img: "/first.svg",
-    array: [
-      "Information Architecture",
-      "Pen and Paper",
-      "Adobe Photoshop",
-      "Adobe Illustrator",
-      "Figma",
-      "Framer",
-      "Typography / Spacing / ...",
-    ],
-  },
-  {
-    count: 2,
-    title: "Front-end Developer",
-    img: "/second.svg",
-    array: [
-      "HTML / CSS3",
-      "javaScript (ES6)",
-      "ReactJS",
-      "NextJS",
-      "TailwindCSS",
-      "Bootstrap",
-      "REST API / GraphQL",
-    ],
-  },
-  {
-    count: 3,
-    title: "Back-end Developer",
-    img: "/third.svg",
-    array: [
-      "NodeJS / Express.js",
-      "MongoDB / MySQL / MSSQL",
-      "Next.js (API)",
-      "PHP",
-      "WordPress Theme Dev",
-      "WordPress Plugin Dev.",
-      "ASP (Once upon a time)",
-    ],
-  },
-  {
-    count: 4,
-    title: "DevOps and Admin",
-    img: "/fourth.svg",
-    array: [
-      "Docker / CI CD",
-      "Apache / Nginx",
-      "CentOS / Ubuntu",
-      "Windows Server / IIS",
-      "Mail Servers / DNS Servers",
-      "Firewalls / Security",
-      "VMWare ESXi",
-    ],
-  },
-  {
-    count: 5,
-    title: "CMS and Headless CMS",
-    img: "/fifth.svg",
-    array: [
-      "Contentful",
-      "GraphCMS",
-      "Strapi",
-      "WordPress (Gutenberg)",
-      "Directus",
-      "Sanity",
-      "SiteBaan (My Own)",
-    ],
-  },
-  {
-    count: 6,
-    title: "Tools and Things",
-    img: "/sisxth.svg",
-    array: [
-      "VSCode",
-      "Git / Github",
-      "Bash / Powershell",
-      "NPM / Yarn",
-      "Plesk Control Panel",
-      "Vercel / Stormkit / Netlify",
-      "Postman / Insomnia",
-    ],
-  },
-];
-
-
-// this is for the slider 
+/**
+ * Portfolio project data for slider and project details
+ * Contains information about Justin's projects including tech stacks, descriptions, and links
+ */
 export const DataArray = [
   {
     title: "Personal Portfolio Website Using Reactjs",
     name: "Portfolio Website",
-    des: "A portfolio website to showcase my projects and skills.",
-    des1: "Built a modern, responsive portfolio website built with Next.js 15 and React 19, featuring animated neural network backgrounds, interactive project carousel, AI chatbot integration, and glassmorphism design. Includes dynamic routing for project details, smooth scroll animations, custom scrollbars, and comprehensive responsive design. Showcases advanced CSS techniques, React hooks, and modern web development practices with full mobile optimization.",
+    des: "A portfolio website to showcase my projects, skills, and interests.",
+    des1: "Developed a modern, fully responsive portfolio website using Next.js 15 and React 19. The site features an animated neural network background, interactive project carousel, AI chatbot integration, and a sleek glassmorphism design. Implemented dynamic project routing, smooth scroll animations, custom scrollbars, and advanced CSS techniques. Leveraged React hooks and modern web development practices to ensure seamless performance and full mobile optimization.",
     images: ["/website.png"],
     techStack: ["Next.js", "React.js", "JavaScript", "Tailwind CSS", "CSS"],
     status: {

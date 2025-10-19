@@ -207,4 +207,642 @@
     opacity: 1;
     transform: translateY(0);
   }
+
+  /* Particle floating animation */
+  @keyframes particleFloat {
+    0%, 100% { 
+      transform: translateY(0px) translateX(0px) scale(1); 
+      opacity: 0.7; 
+    }
+    25% { 
+      transform: translateY(-15px) translateX(5px) scale(0.8); 
+      opacity: 1; 
+    }
+    50% { 
+      transform: translateY(-10px) translateX(-5px) scale(0.6); 
+      opacity: 0.8; 
+    }
+    75% { 
+      transform: translateY(-20px) translateX(3px) scale(0.4); 
+      opacity: 1; 
+    }
+  }
+
+  /* Advanced pulse for neural nodes */
+  @keyframes advancedPulse {
+    0%, 100% { 
+      transform: scale(1); 
+      opacity: 0.8;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.3);
+    }
+    50% { 
+      transform: scale(1.15); 
+      opacity: 1;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.9), inset 0 1px 0 rgba(255, 255, 255, 1), 0 0 30px rgba(255, 255, 255, 0.5);
+    }
+  }
+
+  /* Star twinkling animation */
+  @keyframes advancedStarTwinkle {
+    0%, 100% { 
+      transform: scale(1) rotate(0deg); 
+      opacity: 0.7;
+    }
+    25% { 
+      transform: scale(1.3) rotate(45deg); 
+      opacity: 1;
+    }
+    50% { 
+      transform: scale(0.8) rotate(90deg); 
+      opacity: 0.9;
+    }
+    75% { 
+      transform: scale(1.1) rotate(135deg); 
+      opacity: 1;
+    }
+  }
+
+  /* Neural network connection flow */
+  @keyframes flow {
+    0% { opacity: 0; }
+    30% { opacity: 0.6; }
+    70% { opacity: 0.6; }
+    100% { opacity: 0; }
+  }
+
+  /* Light Mode Theme Styles */
+  .light-theme {
+    transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .light-theme .hero-section {
+    background: 
+      radial-gradient(ellipse at top, #87CEEB 0%, #98D8E8 30%), 
+      linear-gradient(180deg, #4A90E2 0%, #7BB3F0 40%, #B8E0FF 70%, #E6F3FF 100%) !important;
+  }
+
+  /* Light mode cloud system - constrained to home section */
+  .realistic-cloud {
+    position: absolute;
+    opacity: 0;
+    transition: opacity 3s ease-in-out;
+    z-index: 1;
+    filter: blur(0.5px);
+    pointer-events: none;
+  }
+
+  .light-theme .realistic-cloud {
+    opacity: 1;
+  }
+
+  /* Cloud 1 - Cumulus style */
+  .cloud1 {
+    top: 12%;
+    left: 15%;
+    width: 120px;
+    height: 80px;
+    animation: cloudFloat1 25s ease-in-out infinite;
+  }
+
+  .cloud1::before,
+  .cloud1::after {
+    content: '';
+    position: absolute;
+    background: radial-gradient(ellipse 40px 25px at center, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 40%, rgba(230, 240, 255, 0.6) 80%, transparent 100%);
+    border-radius: 50%;
+  }
+
+  .cloud1::before {
+    width: 80px;
+    height: 50px;
+    top: 10px;
+    left: 0;
+    box-shadow: 
+      25px -5px 0 -8px rgba(255, 255, 255, 0.9),
+      50px 5px 0 -12px rgba(255, 255, 255, 0.85),
+      75px -8px 0 -15px rgba(255, 255, 255, 0.8),
+      20px 20px 0 -5px rgba(255, 255, 255, 0.9),
+      45px 25px 0 -10px rgba(255, 255, 255, 0.85),
+      70px 15px 0 -8px rgba(255, 255, 255, 0.8);
+  }
+
+  .cloud1::after {
+    width: 60px;
+    height: 40px;
+    top: 0;
+    left: 30px;
+    background: radial-gradient(ellipse 30px 20px at center, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.9) 50%, rgba(240, 248, 255, 0.7) 100%);
+    box-shadow: 
+      -15px 15px 0 -5px rgba(255, 255, 255, 0.95),
+      15px 20px 0 -8px rgba(255, 255, 255, 0.9);
+  }
+
+  /* Cloud 2 - Stratocumulus style */
+  .cloud2 {
+    top: 18%;
+    right: 10%;
+    width: 150px;
+    height: 90px;
+    animation: cloudFloat2 30s ease-in-out infinite;
+  }
+
+  .cloud2::before,
+  .cloud2::after {
+    content: '';
+    position: absolute;
+    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.9) 30%, rgba(235, 245, 255, 0.75) 60%, rgba(220, 235, 255, 0.4) 100%);
+    border-radius: 50%;
+  }
+
+  .cloud2::before {
+    width: 100px;
+    height: 60px;
+    top: 15px;
+    left: 0;
+    box-shadow: 
+      30px -10px 0 -5px rgba(255, 255, 255, 0.95),
+      65px 8px 0 -10px rgba(255, 255, 255, 0.9),
+      95px -5px 0 -15px rgba(255, 255, 255, 0.85),
+      25px 25px 0 -8px rgba(255, 255, 255, 0.92),
+      55px 30px 0 -12px rgba(255, 255, 255, 0.88),
+      85px 20px 0 -10px rgba(255, 255, 255, 0.85);
+  }
+
+  .cloud2::after {
+    width: 80px;
+    height: 50px;
+    top: 0;
+    left: 35px;
+    background: radial-gradient(ellipse 40px 25px at center, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.95) 40%, rgba(245, 250, 255, 0.8) 100%);
+    box-shadow: 
+      -20px 20px 0 -8px rgba(255, 255, 255, 0.95),
+      20px 25px 0 -10px rgba(255, 255, 255, 0.9),
+      -40px 10px 0 -12px rgba(255, 255, 255, 0.9);
+  }
+
+  /* Cloud 3 - Small Cumulus */
+  .cloud3 {
+    top: 32%;
+    left: 65%;
+    width: 90px;
+    height: 55px;
+    animation: cloudFloat3 35s ease-in-out infinite;
+  }
+
+  .cloud3::before,
+  .cloud3::after {
+    content: '';
+    position: absolute;
+    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.88) 35%, rgba(240, 248, 255, 0.7) 70%, rgba(225, 240, 255, 0.4) 100%);
+    border-radius: 50%;
+  }
+
+  .cloud3::before {
+    width: 60px;
+    height: 35px;
+    top: 8px;
+    left: 0;
+    box-shadow: 
+      20px -3px 0 -5px rgba(255, 255, 255, 0.9),
+      40px 5px 0 -8px rgba(255, 255, 255, 0.85),
+      15px 18px 0 -3px rgba(255, 255, 255, 0.9);
+  }
+
+  .cloud3::after {
+    width: 45px;
+    height: 30px;
+    top: 0;
+    left: 25px;
+    background: radial-gradient(ellipse 22px 15px at center, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.93) 50%, rgba(245, 250, 255, 0.75) 100%);
+  }
+
+  /* Cloud 4 - Medium Stratocumulus */
+  .cloud4 {
+    top: 45%;
+    right: 55%;
+    width: 110px;
+    height: 65px;
+    animation: cloudFloat4 28s ease-in-out infinite;
+  }
+
+  .cloud4::before,
+  .cloud4::after {
+    content: '';
+    position: absolute;
+    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.97) 0%, rgba(255, 255, 255, 0.89) 30%, rgba(235, 245, 255, 0.72) 65%, rgba(220, 235, 255, 0.45) 100%);
+    border-radius: 50%;
+  }
+
+  .cloud4::before {
+    width: 75px;
+    height: 45px;
+    top: 10px;
+    left: 0;
+    box-shadow: 
+      25px -5px 0 -6px rgba(255, 255, 255, 0.92),
+      50px 8px 0 -10px rgba(255, 255, 255, 0.88),
+      20px 22px 0 -5px rgba(255, 255, 255, 0.9);
+  }
+
+  .cloud4::after {
+    width: 55px;
+    height: 35px;
+    top: 0;
+    left: 28px;
+    background: radial-gradient(ellipse 28px 18px at center, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.94) 45%, rgba(245, 250, 255, 0.78) 100%);
+  }
+
+  /* Cloud 5 - Large Cumulus */
+  .cloud5 {
+    top: 58%;
+    left: 25%;
+    width: 130px;
+    height: 75px;
+    animation: cloudFloat5 32s ease-in-out infinite;
+  }
+
+  .cloud5::before,
+  .cloud5::after {
+    content: '';
+    position: absolute;
+    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.91) 25%, rgba(240, 248, 255, 0.75) 60%, rgba(225, 240, 255, 0.5) 100%);
+    border-radius: 50%;
+  }
+
+  .cloud5::before {
+    width: 85px;
+    height: 50px;
+    top: 12px;
+    left: 0;
+    box-shadow: 
+      28px -8px 0 -4px rgba(255, 255, 255, 0.94),
+      58px 6px 0 -8px rgba(255, 255, 255, 0.9),
+      85px -3px 0 -12px rgba(255, 255, 255, 0.86),
+      22px 25px 0 -6px rgba(255, 255, 255, 0.92),
+      52px 28px 0 -10px rgba(255, 255, 255, 0.88);
+  }
+
+  .cloud5::after {
+    width: 65px;
+    height: 40px;
+    top: 0;
+    left: 32px;
+    background: radial-gradient(ellipse 32px 20px at center, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.96) 40%, rgba(245, 250, 255, 0.8) 100%);
+    box-shadow: 
+      -18px 18px 0 -6px rgba(255, 255, 255, 0.95);
+  }
+
+  /* Enhanced Cloud Animation with 3D perspective */
+  @keyframes cloudFloat1 {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    25% { transform: translate3d(15px, -8px, 0) scale(1.02); }
+    50% { transform: translate3d(-8px, 4px, 0) scale(0.98); }
+    75% { transform: translate3d(12px, -3px, 0) scale(1.01); }
+  }
+
+  @keyframes cloudFloat2 {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    33% { transform: translate3d(-20px, 8px, 0) scale(0.98); }
+    66% { transform: translate3d(18px, -6px, 0) scale(1.02); }
+  }
+
+  @keyframes cloudFloat3 {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    20% { transform: translate3d(-12px, 6px, 0) scale(1.01); }
+    40% { transform: translate3d(8px, -10px, 0) scale(0.99); }
+    60% { transform: translate3d(-15px, 4px, 0) scale(1.01); }
+    80% { transform: translate3d(20px, -2px, 0) scale(1.02); }
+  }
+
+  @keyframes cloudFloat4 {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    30% { transform: translate3d(14px, -12px, 0) scale(1.01); }
+    70% { transform: translate3d(-18px, 8px, 0) scale(0.99); }
+  }
+
+  @keyframes cloudFloat5 {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    25% { transform: translate3d(-25px, -6px, 0) scale(0.98); }
+    50% { transform: translate3d(12px, 10px, 0) scale(1.02); }
+    75% { transform: translate3d(-8px, -4px, 0) scale(1.01); }
+  }
+
+  /* Sun Effect - constrained to home section */
+  .sun {
+    position: absolute;
+    top: 15%;
+    right: 20%;
+    width: 60px;
+    height: 60px;
+    background: radial-gradient(circle, #FFD700 0%, #FFA500 70%, rgba(255, 165, 0, 0.5) 100%);
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 3s ease-in-out;
+    z-index: 1;
+    box-shadow: 
+      0 0 20px rgba(255, 215, 0, 0.8),
+      0 0 40px rgba(255, 215, 0, 0.6),
+      0 0 60px rgba(255, 215, 0, 0.4);
+    animation: sunGlow 4s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+
+  .light-theme .sun {
+    opacity: 1;
+  }
+
+  @keyframes sunGlow {
+    0% {
+      box-shadow: 
+        0 0 20px rgba(255, 215, 0, 0.8),
+        0 0 40px rgba(255, 215, 0, 0.6),
+        0 0 60px rgba(255, 215, 0, 0.4);
+      transform: scale(1);
+    }
+    100% {
+      box-shadow: 
+        0 0 30px rgba(255, 215, 0, 1),
+        0 0 60px rgba(255, 215, 0, 0.8),
+        0 0 90px rgba(255, 215, 0, 0.6);
+      transform: scale(1.05);
+    }
+  }
+
+  /* Light mode floating particles - constrained to home section */
+  .light-particle {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .light-theme .light-particle {
+    opacity: 1;
+    animation: lightParticleFloat 8s ease-in-out infinite;
+  }
+
+  @keyframes lightParticleFloat {
+    0% {
+      transform: translateY(0) scale(0);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-100vh) scale(1);
+      opacity: 0;
+    }
+  }
+
+  /* Modern Glass Morphism Effects for light mode - constrained to home section */
+  .glass-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+    backdrop-filter: blur(2px);
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .light-theme .glass-overlay {
+    opacity: 1;
+  }
+
+  /* Enhanced Moon Effect - appears only in dark mode */
+  .moon {
+    position: absolute;
+    top: 15%;
+    right: 20%;
+    width: 60px;
+    height: 60px;
+    background: 
+      radial-gradient(ellipse 25px 20px at 35% 25%, rgba(255, 255, 255, 0.9) 0%, transparent 50%),
+      radial-gradient(ellipse 15px 12px at 60% 70%, rgba(220, 220, 220, 0.7) 0%, transparent 60%),
+      radial-gradient(circle at 25% 35%, #F8F8FF 0%, #E6E6FA 25%, #D3D3D3 60%, #B8B8B8 85%, #A0A0A0 100%);
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 3s ease-in-out;
+    z-index: 2;
+    box-shadow: 
+      0 0 25px rgba(248, 248, 255, 0.8),
+      0 0 50px rgba(248, 248, 255, 0.5),
+      0 0 80px rgba(248, 248, 255, 0.3),
+      inset -12px -12px 0 rgba(160, 160, 160, 0.4),
+      inset 8px 8px 0 rgba(255, 255, 255, 0.2);
+    animation: enhancedMoonGlow 8s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+
+  /* Enhanced crater details */
+  .moon::before {
+    content: '';
+    position: absolute;
+    top: 25%;
+    left: 40%;
+    width: 10px;
+    height: 8px;
+    background: 
+      radial-gradient(ellipse at center, rgba(150, 150, 150, 0.8) 0%, rgba(120, 120, 120, 0.6) 50%, transparent 100%);
+    border-radius: 50%;
+    box-shadow: 
+      18px 12px 0 -3px rgba(140, 140, 140, 0.7),
+      -6px 25px 0 -4px rgba(130, 130, 130, 0.6),
+      25px -8px 0 -2px rgba(145, 145, 145, 0.5),
+      -12px 8px 0 -5px rgba(135, 135, 135, 0.4);
+  }
+
+  .moon::after {
+    content: '';
+    position: absolute;
+    top: 55%;
+    right: 30%;
+    width: 8px;
+    height: 6px;
+    background: 
+      radial-gradient(ellipse at center, rgba(140, 140, 140, 0.9) 0%, rgba(110, 110, 110, 0.7) 40%, transparent 100%);
+    border-radius: 50%;
+    box-shadow: 
+      -8px 8px 0 -3px rgba(125, 125, 125, 0.6),
+      12px 15px 0 -4px rgba(120, 120, 120, 0.5),
+      -15px -5px 0 -2px rgba(130, 130, 130, 0.4);
+  }
+
+  .dark-theme .moon {
+    opacity: 1;
+  }
+
+  @keyframes enhancedMoonGlow {
+    0% {
+      box-shadow: 
+        0 0 25px rgba(248, 248, 255, 0.8),
+        0 0 50px rgba(248, 248, 255, 0.5),
+        0 0 80px rgba(248, 248, 255, 0.3),
+        inset -12px -12px 0 rgba(160, 160, 160, 0.4),
+        inset 8px 8px 0 rgba(255, 255, 255, 0.2);
+      transform: scale(1);
+    }
+    100% {
+      box-shadow: 
+        0 0 35px rgba(248, 248, 255, 1),
+        0 0 70px rgba(248, 248, 255, 0.7),
+        0 0 120px rgba(248, 248, 255, 0.4),
+        inset -12px -12px 0 rgba(160, 160, 160, 0.5),
+        inset 8px 8px 0 rgba(255, 255, 255, 0.3);
+      transform: scale(1.03);
+    }
+  }
+
+  /* Single dark cloud for moon shading */
+  .moon-shadow-cloud {
+    position: absolute;
+    top: 19%;
+    right: 19%;
+    width: 90px;
+    height: 45px;
+    opacity: 0;
+    transition: opacity 3s ease-in-out;
+    z-index: 3;
+    filter: blur(1px);
+    pointer-events: none;
+    animation: moonShadowFloat 18s ease-in-out infinite;
+  }
+
+  .dark-theme .moon-shadow-cloud {
+    opacity: 1;
+  }
+
+  .moon-shadow-cloud::before,
+  .moon-shadow-cloud::after {
+    content: '';
+    position: absolute;
+    background: radial-gradient(ellipse at center, rgba(140, 140, 140, 0.9) 0%, rgba(115, 115, 115, 0.8) 30%, rgba(105, 105, 105, 0.6) 60%, rgba(95, 95, 95, 0.3) 85%, transparent 100%);
+    border-radius: 50%;
+  }
+
+  /* Main cloud body */
+  .moon-shadow-cloud::before {
+    width: 60px;
+    height: 35px;
+    top: 5px;
+    left: 0;
+    background: radial-gradient(ellipse 30px 17px at center, rgba(150, 150, 150, 0.95) 0%, rgba(135, 135, 135, 0.85) 40%, rgba(120, 120, 120, 0.7) 80%, transparent 100%);
+    box-shadow: 
+      25px -3px 0 -6px rgba(159, 158, 158, 0.9),
+      45px 8px 0 -10px rgba(136, 136, 136, 0.8),
+      20px 20px 0 -5px rgba(125, 125, 125, 0.85),
+      50px 25px 0 -12px rgba(115, 115, 115, 0.75);
+  }
+
+  /* Cloud highlight */
+  .moon-shadow-cloud::after {
+    width: 45px;
+    height: 25px;
+    top: 0;
+    left: 22px;
+    background: radial-gradient(ellipse 22px 12px at center, rgba(160, 160, 160, 0.9) 0%, rgba(135, 135, 135, 0.8) 50%, rgba(120, 120, 120, 0.6) 100%);
+    box-shadow: 
+      -15px 18px 0 -4px rgba(150, 150, 150, 0.8),
+      20px 22px 0 -8px rgba(135, 135, 135, 0.7);
+  }
+
+  /* Subtle floating animation for the moon shadow cloud */
+  @keyframes moonShadowFloat {
+    0%, 100% { 
+      transform: translate3d(0, 0, 0) scale(1); 
+      opacity: 1;
+    }
+    25% { 
+      transform: translate3d(-6px, 4px, 0) scale(1.02); 
+      opacity: 0.95;
+    }
+    50% { 
+      transform: translate3d(8px, -2px, 0) scale(0.98); 
+      opacity: 0.9;
+    }
+    75% { 
+      transform: translate3d(-4px, 6px, 0) scale(1.01); 
+      opacity: 0.95;
+    }
+  }
+
+  /* Theme transition styles */
+  .dark-theme {
+    transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Text color adjustments for light mode */
+  .light-theme .hero-text {
+    color: #2c3e50 !important;
+  }
+
+  .light-theme .hero-text h1,
+  .light-theme .hero-text h2 {
+    color: #2c3e50 !important;
+    text-shadow: 0 0 20px rgba(44, 62, 80, 0.3) !important;
+  }
+
+  /* Hide dark mode elements in light theme */
+  .light-theme .neural-network,
+  .light-theme .star-network,
+  .light-theme .shooting-stars-canvas {
+    opacity: 0 !important;
+    pointer-events: none;
+  }
+
+  /* Hide light mode elements in dark theme */
+  .dark-theme .realistic-cloud,
+  .dark-theme .sun,
+  .dark-theme .glass-overlay,
+  .dark-theme .light-particle {
+    opacity: 0 !important;
+  }
+
+  /* Hide dark mode moon in light theme */
+  .light-theme .moon {
+    opacity: 0 !important;
+  }
+
+  /* Ensure proper z-index stacking within home section */
+  .realistic-cloud {
+    z-index: 1;
+  }
+
+  .sun {
+    z-index: 2;
+  }
+
+  .glass-overlay {
+    z-index: -1;
+  }
+
+  .light-particle {
+    z-index: 1;
+  }
+
+  /* Bottom fade color adjustment for light mode */
+  .light-theme .bottom-fade {
+    background: linear-gradient(
+      to bottom, 
+      transparent 0%, 
+      rgba(230, 243, 255, 0.05) 15%,
+      rgba(230, 243, 255, 0.1) 25%,
+      rgba(230, 243, 255, 0.2) 35%,
+      rgba(230, 243, 255, 0.35) 50%,
+      rgba(230, 243, 255, 0.5) 65%,
+      rgba(230, 243, 255, 0.7) 80%,
+      rgba(230, 243, 255, 0.85) 90%,
+      #E6F3FF 100%
+    ) !important;
+  }
   
