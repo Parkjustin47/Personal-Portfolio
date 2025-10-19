@@ -30,7 +30,7 @@ const INTENT_PATTERNS = [
     },
     {
         type: INTENT_TYPES.ABOUT,
-        patterns: [/\b(who\s+(are\s+)?you|about\s+(you|yourself)|introduce\s+yourself|bio|background.*you)\b/]
+        patterns: [/\b(who\s+(are\s+)?you|about\s+(you|yourself)|introduce\s+yourself|bio|background.*you|major)\b/]
     },
     {
         type: INTENT_TYPES.EXPERIENCE,
