@@ -1,6 +1,7 @@
 'use client'
 import React, { useState, useEffect, useRef } from 'react'
 import { useTheme } from '../../hooks/useTheme'
+import {FaComment} from "react-icons/fa";
 
 export default function ChatBot({ onExpand, typingReady }) {
   const [message, setMessage] = useState('')
@@ -595,7 +596,7 @@ export default function ChatBot({ onExpand, typingReady }) {
         >
           {messages.length === 0 ? (
             <div className="empty-state">
-               <img src="/park1.svg" alt="Park Portfolio" className="empty-state-image" />
+               <FaComment className="empty-state-image text-gray-400 text-6xl" />
               <div className="empty-state-subtext">Ask me anything about my projects, experience, or interests!</div>
             </div>
           ) : (
