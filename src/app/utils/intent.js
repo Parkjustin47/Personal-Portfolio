@@ -52,7 +52,7 @@ const INTENT_PATTERNS = [
         type: INTENT_TYPES.SKILLS,
         patterns: [
             /\b(skills?|tech\s+stack|technologies|tools|languages|programming|frameworks?|what.*know)\b/,
-            /\b(c++|react|next|python|java|javascript|html|css|mongodb|mysql|assembly)\b/
+            /\b(c\+\+|react|next|python|java|javascript|html|css|mongodb|mysql|assembly)\b/
         ]
     },
     {
