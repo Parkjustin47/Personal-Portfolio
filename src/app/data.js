@@ -103,7 +103,7 @@ export const DataArray = [
     },
     year: "2025",
     demoLink: null,
-    repositoryLink: "https://github.com/bseo97/Portfolio"
+    repositoryLink: "https://github.com/parkjustin47/Portfolio"
   },
   {
     title: "Hackathon Project: Rent-spiracy",

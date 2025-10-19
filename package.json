@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "next": "^15.1.6",
+    "openai": "^6.5.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-slick": "^0.30.3",
