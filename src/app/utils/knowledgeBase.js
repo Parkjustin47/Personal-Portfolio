@@ -126,7 +126,8 @@ export function getProjectsData(){
 export function kbToPassages(){
     const passages = [];
 
-    // Bio and highlights
+    // Name and bio
+    passages.push(`MY NAME: Justin`);
     passages.push(`BIO: ${justinInfo.bio}`);
     passages.push(`HIGHLIGHTS: ${justinInfo.highlights.join("; ")}`);
 
@@ -151,13 +152,11 @@ export function kbToPassages(){
 
     // Contact and fun facts
     passages.push(`CONTACT: ${justinInfo.contact.email}, ${justinInfo.contact.resume}, ${justinInfo.contact.github}, ${justinInfo.contact.linkedin}`);
-    passages.push(`PERSONAL: ${justinInfoInfo.fun.join("; ")}`);
+    passages.push(`PERSONAL: ${justinInfo.fun.join("; ")}`);
 
     // Education and involvement (first person)
     passages.push(`MY EDUCATION: I’m a Computer Science with Business Applications student at UC Riverside, involved with the Association for Computing Machinery and active in hackathons.`);
-  
-    return passages;
-}
+    passages.push(`GRADUATION: I'm expected to graduate in Spring 2027 from UC Riverside with my Computer Science with Business Applications degree.`);    passages.push(`MY SCHOOL: I attend UC Riverside (University of California, Riverside). I'm pursuing a degree in Computer Science with Business Applications.`);    return passages;}
 
 /**
  * Gets project by name (case insensitive)

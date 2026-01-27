@@ -23,17 +23,17 @@ try {
 let vectors = null;
 let passages = [];
 let openai = null;
-let indexIntialized = false;
-let intializationPromise = null;
+let indexInitialized = false;
+let initializationPromise = null;
 
 function initOpenAI(){
-    if (!OpenAI || !process.env.OPEN_API_KEY){
+    if (!OpenAI || !process.env.OPENAI_API_KEY){
         return null;
     }
 
     if (!openai){
         openai = new OpenAI({
-            apiKey: process.env.OPEN_API_KEY
+            apiKey: process.env.OPENAI_API_KEY
         });
     }
 
@@ -42,19 +42,19 @@ function initOpenAI(){
 
 // Build the embeddings index (run once)
 async function ensureIndex(){
-    // Return immediately if already intialized or OpenAI is not availible
-    if (indexIntialized || !initOpenAI()){
+    // Return immediately if already initialized or OpenAI is not available
+    if (indexInitialized || !initOpenAI()){
         return;
     }
 
-    // If intialization is already in progress. WAIT
-    if (intializationPromise){
-        return intializationPromise;
+    // If initialization is already in progress. WAIT
+    if (initializationPromise){
+        return initializationPromise;
     }
 
-    // Start intialization
+    // Start initialization
     console.log('Building embeddings index...');
-    intializationPromise = (async () => {
+    initializationPromise = (async () => {
         try {
             passages = kbToPassages();
             console.log(`Creating embeddings for ${passages.length} passages... `);
@@ -65,13 +65,13 @@ async function ensureIndex(){
             });
 
             vectors = response.data.map(d => d.embedding);
-            indexIntialized = true;
-            console.log(`Embeddings index built successfullt with ${passages.length} passages`);
+            indexInitialized = true;
+            console.log(`Embeddings index built successfully with ${passages.length} passages`);
         } catch (error){
             console.error('Failed to create embeddings:', error);
             vectors = null;
-            indexIntialized = false;
-            intializationPromise = null;
+            indexInitialized = false;
+            initializationPromise = null;
             throw error;
         }
     })();
@@ -85,6 +85,7 @@ function cosine(a, b){
 
     for (let i = 0, len = a.length; i < len; i++){
         const ai = a[i], bi = b[i];
+        dotProduct += ai * bi;
         normA += ai * ai;
         normB += bi * bi;
     }

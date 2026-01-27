@@ -30,12 +30,12 @@ const INTENT_PATTERNS = [
     },
     {
         type: INTENT_TYPES.ABOUT,
-        patterns: [/\b(who\s+(are\s+)?you|about\s+(you|yourself)|introduce\s+yourself|bio|background.*you|major)\b/]
+        patterns: [/\b(who\s+(are\s+)?you|what.*name|my\s+name|about\s+(you|yourself)|introduce\s+yourself|bio|background.*you|major|school|university|attend)\b/]
     },
     {
         type: INTENT_TYPES.EXPERIENCE,
         patterns: [
-            /\b(experience|internship|roles|education|university|ucr|riverside|student|academic|hackathon)\b/,
+            /\b(experience|internship|roles|education|university|ucr|riverside|student|academic|hackathon|graduate|graduation|when.*graduate|expected.*graduation)\b/,
             /\b(have\s+you\s+(ever\s+)?(done|participated|been\s+to|attended).*hackathon)\b/
         ]
     },

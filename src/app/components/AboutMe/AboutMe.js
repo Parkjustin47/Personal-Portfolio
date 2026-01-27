@@ -377,7 +377,7 @@ export default function AboutMe(){
             className={`photo-section ${photoVisible ? 'visible' : ''}`}
           >
             <img 
-              src="/justin.JPG" 
+              src="/justin.jpg" 
               alt="Justin Park"
               className="profile-photo"
             />
