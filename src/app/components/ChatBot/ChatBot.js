@@ -604,7 +604,7 @@ export default function ChatBot({ onExpand, typingReady }) {
               {messages.map((msg) => (
                 <div key={msg.id} className={`message ${msg.isUser ? 'user' : 'bot'}`}>
                   <div className="message-avatar">
-                    {msg.isUser ? 'U' : 'B'}
+                    {msg.isUser ? 'U' : 'J'}
                   </div>
                   <div className="message-content">
                     <div 
@@ -617,7 +617,7 @@ export default function ChatBot({ onExpand, typingReady }) {
               ))}
               {botIsTyping && (
                 <div className="message bot">
-                  <div className="message-avatar">B</div>
+                  <div className="message-avatar">J</div>
                   <div className="message-content">
                     <div className="message-bubble typing-indicator">
                       <span>Typing</span>

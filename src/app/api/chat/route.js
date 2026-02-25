@@ -19,6 +19,15 @@ try {
     console.warn('OpenAI package not found. Install with: npm install openai');
 }
 
+// log environment key on startup for debugging (don't leave in production!)
+if (typeof process !== 'undefined') {
+    console.log('OPENAI_API_KEY present?', !!process.env.OPENAI_API_KEY);
+    // you can optionally log the first 8 characters to verify it's loaded
+    if (process.env.OPENAI_API_KEY) {
+        console.log('OPENAI_API_KEY starts with', process.env.OPENAI_API_KEY.slice(0, 8));
+    }
+}
+
 // In memory state
 let vectors = null;
 let passages = [];
@@ -27,14 +36,21 @@ let indexInitialized = false;
 let initializationPromise = null;
 
 function initOpenAI(){
+    console.log('initOpenAI called; key present?', !!process.env.OPENAI_API_KEY);
     if (!OpenAI || !process.env.OPENAI_API_KEY){
+        console.warn('initOpenAI returning null (missing package or key)');
         return null;
     }
 
     if (!openai){
-        openai = new OpenAI({
-            apiKey: process.env.OPENAI_API_KEY
-        });
+        try {
+            openai = new OpenAI({
+                apiKey: process.env.OPENAI_API_KEY
+            });
+        } catch(err) {
+            console.error('failed to create OpenAI client', err);
+            return null;
+        }
     }
 
     return openai;
@@ -95,7 +111,7 @@ function cosine(a, b){
 
 // Retrieve top-K relevant passages for query
 async function retrievePassages(query, topK = 5){
-    if (!indexIntialized || !vectors || !openai){
+    if (!indexInitialized || !vectors || !openai){
         console.log('Index not ready for retrieval');
         return [];
     }
@@ -140,6 +156,8 @@ async function generateResponse(message, intent, relevantPassages, maxTokens) {
     const systemPrompt = `You are Justin Park having a friendly conversation about yourself. 
 
 IMPORTANT: You should answer questions about Justin in ANY language and respond to ALL types of greetings warmly.
+
+If you do not know the answer to a question, say so politely rather than making something up.
 
 Guidelines:
 1. Answer questions about Justin's personal info, projects, skills, experience, education, portfolio
@@ -194,9 +212,17 @@ function createResponse(reply, intent, status = 200) {
 async function getChatbotResponse(message, intent) {
     // No longer block OFF_TOPIC - let LLM make intelligent decisions about relevance
   
-    if (!initOpenAI()) {
-        return getFallbackResponse(intent);
+    const client = initOpenAI();
+    if (!client) {
+        console.warn('OpenAI not configured. Make sure OPENAI_API_KEY is set in the environment.');
+        // Give user a more helpful reply when the API key is missing
+        return {
+            reply: "OpenAI API key is not configured on the server. The chatbot cannot answer right now.",
+            intent
+        };
     }
+    // assign openai to the initialized client (initOpenAI caches it)
+    openai = client;
   
     try {
         await ensureIndex();

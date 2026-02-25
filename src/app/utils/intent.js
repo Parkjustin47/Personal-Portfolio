@@ -72,36 +72,11 @@ const INTENT_PATTERNS = [
  */
 
 export function routeIntent(query) {
-    const s = query.toLowerCase().trim();
-  
-    // First, check for specific Justin-related intents (projects, skills, contact, fun)
-    for (const { type, patterns } of INTENT_PATTERNS) {
-        if (patterns.some(pattern => pattern.test(s))) {
-            return type;
-        }
-    }
-  
-    // Check for greetings in multiple languages and casual formats
-    const greetingPatterns = /\b(hi|hello|hey|hola|bonjour|guten\s+tag|ciao|konnichiwa|annyeonghaseyo|안녕|namaste|salaam|shalom|howdy|sup|what's\s+up|whats\s+up|good\s+morning|good\s+afternoon|good\s+evening|hey\s+there|hey\s+man|heyy+|yo|hallo|aloha)\b/;
-  
-    if (greetingPatterns.test(s)) {
-        return INTENT_TYPES.ABOUT; // Treat greetings as about Justin for friendly intro
-    }
-  
-    // Broader pattern matching for Justin-related questions (including multilingual indicators)
-    const justinRelatedPatterns = /\b(you|your|justin|portfolio|project|skill|experience|education|study|work|build|develop|create|made|built|ucr|riverside|hackathon|university|student|resume|background|journey|story|learn|career|future|goals|achievements|accomplishments|academic|internship|job|hire|contact|email|github|linkedin|tell\s+me|about\s+yourself|who\s+are\s+you|introduce|yourself|퀘스|qui\s+es|quien\s+eres|c'est\s+quoi|wer\s+bist|chi\s+sei)\b/;
-  
-    const questionPatterns = /\b(what.*you|how.*you|where.*you|when.*you|why.*you|who.*you|tell.*about|describe|explain.*your|show.*your|share.*your|can\s+you|could\s+you|would\s+you|do\s+you|did\s+you|have\s+you|are\s+you|were\s+you)\b/;
-  
-    // If it contains Justin-related patterns or seems like a personal question, let LLM handle it
-    if (justinRelatedPatterns.test(s) || questionPatterns.test(s)) {
-        return INTENT_TYPES.FALLBACK; // Let OpenAI determine exact intent and relevance
-    }
-  
-    // For everything else, let the LLM decide if it's relevant
-    // This removes rigid off-topic detection and leverages LLM intelligence
-        return INTENT_TYPES.FALLBACK;
-    }
+    // Skip all pattern matching and send every message through the
+    // fallback path so the LLM itself determines how to respond.
+    return INTENT_TYPES.FALLBACK;
+}
+
 
 /**
  * Gets appropriate fallback responses for different intents
